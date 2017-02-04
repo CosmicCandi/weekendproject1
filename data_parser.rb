@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require 'csv'
+require 'pry'
 
 # Deliverables:
 # A repo containing at least:
@@ -11,35 +12,38 @@ require 'csv'
 # I should be able to run ruby data_parser.rb and see the output on the screen
 
 class Delivery
-  attr_accessor :destination, :whatshipped, :number_of_crates, :money_we_made, :pilot,
-  :bonus
-  def initialize(destination:, what_got_shipped:, number_of_crates:, money_we_made:, pilot:, bonus: )
+  attr_accessor :destination, :whatshipped, :number_of_crates, :money_we_made, :pilot, :bonus
+
+  def initialize(destination:, what_got_shipped:, number_of_crates:, money_we_made:)
       @destination = destination
       @what_got_shipped = what_got_shipped
       @number_of_crates = number_of_crates.to_i
       @money_we_made = money_we_made.to_i
-      @pilot = pilot
-      @bonus = bonus
-
-      # def pilot_bonus(destination, money_we_made)
-      #   #pseudo-code pilot bonus = (.1 * :money_we_made)  *IF* pilot flies to destination
-      #
-      # planet_express.each do |youflyit|
-      #   case whichpilot
-      #   when "Earth"
-      #     pilot = "Fry"
-      #   when "Uranus"
-      #     pilot = "Bender"
-      #   when "Mars"
-      #     pilot = "Amy"
-      #   else
-      #     pilot = "Leela"
-      #   end
-
-
+      @pilot = get_pilot
+      @bonus = money_we_made * 0.1
   end
-end
 
+  #Grab the pilot and inject into array
+  def get_pilot
+    case destination
+      when "Earth"
+        "Fry"
+      when "Uranus"
+        "Bender"
+      when "Mars"
+        "Amy"
+      else
+        "Leela"
+    end
+  end
+
+  puts "How much of a bonus did each employee get? (Bonuses are paid to employees who pilot the Planet Express.)"
+  # They get a bonus of 10% of the money for the shipment as the bonus
+  # def get_bonus(pilot, money_we_made)
+  #   << (.1 * :money_we_made)
+  # end
+
+end
 # data = CSV.foreach("students.csv", headers: true, header_converters: :symbol)
 
 # Explorer Mode
@@ -47,21 +51,20 @@ end
 planet_express = []
 
 CSV.foreach("planet_express_logs.csv", headers: true, header_converters:
-:symbol, :pilot, :bonus) do |row|
+:symbol) do |row|
   planet_express << Delivery.new(row)
-    if
 end
+#Grab the bonus
 
 # Good news Rubyists!
 # We have a week of records tracking what we shipped at Planet Express. I need you to answer a few questions for Hermes.
 
 # How much money did we make this week?
+binding.pry
+
 total_money_we_made = 0
 puts planet_express.collect(&:money_we_made).reduce(:+)
 puts total_money_we_made
-
-# How much of a bonus did each employee get? (bonuses are paid to employees who pilot the Planet Express)
-# They get a bonus of 10% of the money for the shipment as the bonus
 
 # Destination	What got shipped	Number of crates	Money we made
 # Earth	Hamburgers	150	30000 - Fry
