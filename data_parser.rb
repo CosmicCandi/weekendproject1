@@ -20,7 +20,7 @@ class Delivery
       @number_of_crates = number_of_crates.to_i
       @money_we_made = money_we_made.to_i
       @pilot = get_pilot
-      @bonus = money_we_made * 0.1
+      @bonus = money_we_made.to_i * 0.1
   end
 
   #Grab the pilot and inject into array
@@ -36,12 +36,6 @@ class Delivery
         "Leela"
     end
   end
-
-  puts "How much of a bonus did each employee get? (Bonuses are paid to employees who pilot the Planet Express.)"
-  # They get a bonus of 10% of the money for the shipment as the bonus
-  # def get_bonus(pilot, money_we_made)
-  #   << (.1 * :money_we_made)
-  # end
 
 end
 # data = CSV.foreach("students.csv", headers: true, header_converters: :symbol)
@@ -65,6 +59,13 @@ binding.pry
 total_money_we_made = 0
 puts planet_express.collect(&:money_we_made).reduce(:+)
 puts total_money_we_made
+
+puts "How much of a bonus did each employee get? (Bonuses are paid to employees who pilot the Planet Express.)"
+# They get a bonus of 10% of the money for the shipment as the bonus
+# def get_bonus(pilot, money_we_made)
+#   << (.1 * :money_we_made)
+# end
+
 
 # Destination	What got shipped	Number of crates	Money we made
 # Earth	Hamburgers	150	30000 - Fry
